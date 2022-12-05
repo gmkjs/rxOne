@@ -1,25 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
+import React,{useState} from "react";
+import Employee from "./Employee";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+const App = ()=>{
+    const [inpVal, setInpVal ] = useState('Mohan');
+const [propChange, setPropChange] = useState('');
+    const names = (e)=>{
+setInpVal(e.target.value);
+    }
+    return <div>
+        <Employee  name={propChange}/>
+        <input value={inpVal} onChange={names} />
+        <button onClick={()=>setPropChange(inpVal)}>pass</button>
     </div>
-  );
-}
+
+};
 
 export default App;
