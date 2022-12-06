@@ -1,18 +1,67 @@
-import React,{useState} from "react";
-import Employee from "./Employee";
+// import React, { useState } from "react";
+// import Employee from "./Employee";
 
-const App = ()=>{
-    const [inpVal, setInpVal ] = useState('Mohan');
-const [propChange, setPropChange] = useState('');
-    const names = (e)=>{
-setInpVal(e.target.value);
+// const App = () => {
+
+    import React, { useEffect, useState } from 'react';
+    const App = () => {
+    
+        const [name,setName] = useState("")
+        const [tasks,setTasks] = useState([])
+    
+        const addTask = ()=>{
+            console.log(name)
+           setTasks([name,...tasks])
+        } 
+    
+        const deletTask = (y) => {
+            let temptasks = tasks.filter((i,index)=>index!==y)
+            setTasks(temptasks)
+        }
+
+        const editTask = (y)=> {
+            console.log(y);
+        }
+    
+        useEffect(()=>{
+            setName("")
+        },[tasks])
+    
+        return  <div>
+                    <div>
+                    <input value={name} onChange={(e)=>setName(e.target.value)} /> 
+                    <button onClick={addTask}>Add Task</button>
+                    </div>
+                    <div>
+                        {
+                            tasks.map((i,index)=>{
+                                return <h3 key={index} style={{backgroundColor:'yellow'}}>{i}  <span>x</span>  <button onClick={()=>deletTask(index)}>  delete</button> <button onClick={()=>editTask(index)}> edit</button> </h3>
+                            })
+                        }
+                    </div>
+    
+                </div>
     }
-    return <div>
-        <Employee  name={propChange}/>
-        <input value={inpVal} onChange={names} />
-        <button onClick={()=>setPropChange(inpVal)}>pass</button>
-    </div>
+    
+    export default App;
 
-};
 
-export default App;
+
+
+
+
+    // const [inpVal, setInpVal] = useState('');
+    // const [propChange, setPropChange] = useState('');
+
+    // const names = (e) => {
+    //     setInpVal(e.target.value);
+    // }
+    // return <div>
+    //     <Employee name={propChange} />
+    //     <input value={inpVal} onChange={names} />
+    //     <button onClick={() => setPropChange(inpVal)}>pass</button>
+    // </div>
+
+// };
+
+// export default App;
