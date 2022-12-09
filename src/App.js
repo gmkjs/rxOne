@@ -8,10 +8,21 @@
     
         const [name,setName] = useState("")
         const [tasks,setTasks] = useState([])
+        const [index,setIndex] = useState()
     
         const addTask = ()=>{
-            console.log(name)
-           setTasks([name,...tasks])
+            console.log(index)
+            
+            if(index){
+                let tempTasks = [...tasks]
+                tempTasks.splice(parseInt(index), 1, name)
+                setTasks([...tempTasks])
+                setIndex();
+
+            }else if(name){
+                setTasks([name,...tasks])
+            }
+           
         } 
     
         const deletTask = (y) => {
@@ -19,8 +30,10 @@
             setTasks(temptasks)
         }
 
-        const editTask = (y)=> {
-            console.log(y);
+        const editTask = (y, x)=> {
+            let tempindex = y + ''
+            setIndex(tempindex)
+            setName(x)
         }
     
         useEffect(()=>{
@@ -35,7 +48,7 @@
                     <div>
                         {
                             tasks.map((i,index)=>{
-                                return <h3 key={index} style={{backgroundColor:'yellow'}}>{i}  <span>x</span>  <button onClick={()=>deletTask(index)}>  delete</button> <button onClick={()=>editTask(index)}> edit</button> </h3>
+                                return <h3 key={index} style={{backgroundColor:'yellow'}}>{i}  <span>x</span>  <button onClick={()=>deletTask(index)}>  delete</button> <button onClick={()=>editTask(index, i)}> edit</button> </h3>
                             })
                         }
                     </div>
